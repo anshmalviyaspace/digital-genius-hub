@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none">
+  <!-- A -->
+  <path
+    d="M18 95 C22 80, 30 60, 42 30 C44 25, 46 22, 48 22 C50 22, 52 25, 54 30 C60 50, 66 70, 70 95"
+    stroke="white" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"
+  />
+  <!-- A crossbar -->
+  <path
+    d="M28 68 C38 65, 52 65, 62 68"
+    stroke="white" stroke-width="7" stroke-linecap="round" fill="none"
+  />
+  <!-- M -->
+  <path
+    d="M82 95 C82 75, 82 50, 84 30 C85 25, 87 22, 89 24 C96 38, 104 58, 108 72 C112 58, 120 38, 127 24 C129 22, 131 25, 132 30 C134 50, 134 75, 134 95"
+    stroke="white" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"
+  />
+</svg>
