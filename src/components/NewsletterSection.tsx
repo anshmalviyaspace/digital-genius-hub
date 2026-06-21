@@ -44,6 +44,10 @@ const NewsletterSection = () => {
     let mounted = true;
     (async () => {
       try {
+        if (!supabase) {
+          if (mounted) setLoading(false);
+          return;
+        }
         const { data, error } = await supabase.functions.invoke("fetch-newsletter-posts");
         if (!error && mounted && data?.posts?.length) {
           setPosts(data.posts);
