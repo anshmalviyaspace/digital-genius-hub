@@ -1,5 +1,5 @@
 import StaggeredMenu from "@/components/StaggeredMenu";
-import logoImg from "@/assets/logo.svg";
+import logoImg from "@/assets/logo.png";
 
 const navItems = [
   { label: "Work",       ariaLabel: "View my work",        link: "#projects"   },
