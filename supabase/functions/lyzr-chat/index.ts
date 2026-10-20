@@ -4,16 +4,22 @@ const corsHeaders = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
-const AGENT_ID = "69ecf551b9b12ab6e62c8e83";
+const AGENT_ID = "6a37fe16d87a209debdd7346";
 const USER_ID = "anshmalviya010@gmail.com";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+  if (req.method !== "POST") {
+    return new Response(JSON.stringify({ error: "method not allowed" }), {
+      status: 405,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
 
   try {
     const { message, session_id } = await req.json();
-    if (!message || typeof message !== "string") {
-      return new Response(JSON.stringify({ error: "message required" }), {
+    if (typeof message !== "string" || !message.trim() || message.length > 4000) {
+      return new Response(JSON.stringify({ error: "message must be between 1 and 4000 characters" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -36,28 +42,32 @@ Deno.serve(async (req) => {
         user_id: USER_ID,
         agent_id: AGENT_ID,
         session_id: sid,
-        message,
+        message: message.trim(),
       }),
     });
 
     const text = await res.text();
     if (!res.ok) {
-      return new Response(JSON.stringify({ error: `Lyzr ${res.status}: ${text}` }), {
-        status: 200,
+      console.error("Lyzr chat request failed", res.status, text);
+      return new Response(JSON.stringify({ error: "chat provider request failed" }), {
+        status: 502,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    let data: any;
+    let data: unknown;
     try { data = JSON.parse(text); } catch { data = { response: text }; }
-    const reply = data.response || data.message || data.output || data.answer || text;
+    const result = typeof data === "object" && data !== null ? data as Record<string, unknown> : {};
+    const reply = [result.response, result.message, result.output, result.answer]
+      .find((value): value is string => typeof value === "string") ?? text;
 
     return new Response(JSON.stringify({ reply, session_id: sid }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (e) {
-    return new Response(JSON.stringify({ error: String(e) }), {
-      status: 200,
+    console.error("Lyzr chat function failed", e);
+    return new Response(JSON.stringify({ error: "chat request failed" }), {
+      status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }

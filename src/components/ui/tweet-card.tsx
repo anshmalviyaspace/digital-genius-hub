@@ -6,6 +6,14 @@ interface TweetCardProps {
   style?: CSSProperties;
 }
 
+type TwitterWidgets = {
+  widgets?: {
+    createTweet: (id: string, target: HTMLElement, options: { theme: 'dark'; dnt: true; align: 'center' }) => unknown;
+  };
+};
+
+const getTwitterWidgets = () => (window as Window & { twttr?: TwitterWidgets }).twttr;
+
 /**
  * Embeds a tweet using Twitter's official widgets.js script.
  * This approach is far more reliable than react-tweet in a Vite SPA
@@ -24,7 +32,7 @@ export function TweetCard({ id, className, style }: TweetCardProps) {
     // Load Twitter widgets.js if not already loaded
     const loadTwitterScript = (): Promise<void> => {
       return new Promise((resolve) => {
-        if ((window as any).twttr?.widgets) {
+        if (getTwitterWidgets()?.widgets) {
           resolve();
           return;
         }
@@ -34,7 +42,7 @@ export function TweetCard({ id, className, style }: TweetCardProps) {
           // Script tag exists but might still be loading
           existing.addEventListener('load', () => resolve());
           // In case it already loaded
-          if ((window as any).twttr?.widgets) resolve();
+          if (getTwitterWidgets()?.widgets) resolve();
           return;
         }
 
@@ -49,7 +57,7 @@ export function TweetCard({ id, className, style }: TweetCardProps) {
 
     loadTwitterScript().then(() => {
       if (!container) return;
-      (window as any).twttr.widgets.createTweet(id, container, {
+      getTwitterWidgets()?.widgets?.createTweet(id, container, {
         theme: 'dark',
         dnt: true,
         align: 'center',

@@ -2,14 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import anshAvatar from "@/assets/ansh-hero.png";
+import { supabase } from "@/integrations/supabase/client";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
 const SESSION_KEY = "lyzr_session_id";
-const AGENT_ID = "6a37fe16d87a209debdd7346";
-const LYZR_API_KEY = "sk-default-cPRDs5JpOrK4GcK8KTZ5aVVtDrVcfPGe";
-const LYZR_USER_ID = "anshmalviya010@gmail.com";
-const LYZR_API_URL = "https://agent-prod.studio.lyzr.ai/v3/inference/chat/";
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -24,12 +21,7 @@ export default function ChatWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    let sid = localStorage.getItem(SESSION_KEY);
-    if (!sid) {
-      sid = `${AGENT_ID}-${Math.random().toString(36).slice(2, 12)}`;
-      localStorage.setItem(SESSION_KEY, sid);
-    }
-    setSessionId(sid);
+    setSessionId(localStorage.getItem(SESSION_KEY) ?? "");
   }, []);
 
   useEffect(() => {
@@ -95,26 +87,22 @@ export default function ChatWidget() {
     setMessages((m) => [...m, { role: "user", content: text }]);
     setLoading(true);
     try {
-      const res = await fetch(LYZR_API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": LYZR_API_KEY,
-        },
-        body: JSON.stringify({
-          user_id: LYZR_USER_ID,
-          agent_id: AGENT_ID,
-          session_id: sessionId,
-          message: text,
-        }),
+      if (!supabase) throw new Error("Chat service is not configured");
+
+      const { data, error } = await supabase.functions.invoke("lyzr-chat", {
+        body: { message: text, session_id: sessionId || undefined },
       });
 
-      if (!res.ok) throw new Error(`Lyzr API error: ${res.status}`);
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
 
-      const data = await res.json();
-      const reply = data.response || data.message || data.output || data.answer || "...";
+      const reply = data?.reply || "...";
       setMessages((m) => [...m, { role: "assistant", content: reply }]);
-    } catch (e: any) {
+      if (data?.session_id && data.session_id !== sessionId) {
+        setSessionId(data.session_id);
+        localStorage.setItem(SESSION_KEY, data.session_id);
+      }
+    } catch (e: unknown) {
       setMessages((m) => [
         ...m,
         { role: "assistant", content: "hmm, something broke on my end. try again in a sec." },

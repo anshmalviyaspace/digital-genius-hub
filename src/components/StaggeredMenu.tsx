@@ -1,6 +1,10 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
+const numberOpacityVars = (value: number): gsap.TweenVars => ({
+  ['--sm-num-opacity']: value,
+} as gsap.TweenVars);
+
 export interface StaggeredMenuItem {
   label: string;
   ariaLabel: string;
@@ -113,7 +117,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const offscreen = position === 'left' ? -100 : 100;
 
     if (itemEls.length) gsap.set(itemEls, { yPercent: 140, rotate: 10 });
-    if (numberEls.length) gsap.set(numberEls, { ['--sm-num-opacity' as any]: 0 });
+    if (numberEls.length) gsap.set(numberEls, numberOpacityVars(0));
     if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
     if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
 
@@ -133,7 +137,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       const itemsStart = panelInsertTime + panelDuration * 0.15;
       tl.to(itemEls, { yPercent: 0, rotate: 0, duration: 1, ease: 'power4.out', stagger: { each: 0.1, from: 'start' } }, itemsStart);
       if (numberEls.length) {
-        tl.to(numberEls, { duration: 0.6, ease: 'power2.out', ['--sm-num-opacity' as any]: 1, stagger: { each: 0.08, from: 'start' } }, itemsStart + 0.1);
+        tl.to(numberEls, { ...numberOpacityVars(1), duration: 0.6, ease: 'power2.out', stagger: { each: 0.08, from: 'start' } }, itemsStart + 0.1);
       }
     }
 
@@ -181,7 +185,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel')) as HTMLElement[];
         if (itemEls.length) gsap.set(itemEls, { yPercent: 140, rotate: 10 });
         const numberEls = Array.from(panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item')) as HTMLElement[];
-        if (numberEls.length) gsap.set(numberEls, { ['--sm-num-opacity' as any]: 0 });
+        if (numberEls.length) gsap.set(numberEls, numberOpacityVars(0));
         const socialTitle = panel.querySelector('.sm-socials-title') as HTMLElement | null;
         const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link')) as HTMLElement[];
         if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
@@ -316,7 +320,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     <div className={`sm-scope ${isFixed ? 'fixed top-0 left-0 w-screen h-screen overflow-hidden' : 'w-full h-full'} z-50 pointer-events-none`}>
       <div
         className={(className ? className + ' ' : '') + 'staggered-menu-wrapper relative w-full h-full pointer-events-none'}
-        style={accentColor ? ({ ['--sm-accent' as any]: accentColor } as React.CSSProperties) : undefined}
+        style={accentColor ? ({ '--sm-accent': accentColor } as React.CSSProperties & { '--sm-accent': string }) : undefined}
         data-position={position}
         data-open={open || undefined}
       >

@@ -17,7 +17,8 @@ export function isMobileDevice() {
 
 export function isIOS() {
   if (typeof window === "undefined") return false;
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+  const win = window as Window & { MSStream?: unknown };
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !win.MSStream;
 }
 
 export function shouldDisableAnimations() {

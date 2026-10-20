@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import Lenis from "@studio-freight/lenis";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Preloader from "@/components/Preloader";
 import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
@@ -11,8 +14,11 @@ import TweetSection from "@/components/TweetSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import ContactSection from "@/components/ContactSection";
 import FooterSection from "@/components/FooterSection";
-import ChatWidget from "@/components/ChatWidget";
-import { isIOS } from "@/lib/utils";
+import KageScene from "@/components/KageScene";
+import VentureConstellation from "@/components/VentureConstellation";
+import { isIOS, prefersReducedMotion } from "@/lib/utils";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
@@ -33,28 +39,32 @@ const Index = () => {
 
   useEffect(() => {
     if (!loaded) return;
-    // Skip Lenis on iOS — its rAF loop blocks the main thread on WebKit
-    if (isIOS()) return;
+    if (prefersReducedMotion()) return;
 
     const lenis = new Lenis({
-      duration: 0.9,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.2,
+      lerp: 0.1,
+      smoothWheel: true,
     });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    lenis.on("scroll", ScrollTrigger.update);
+    const updateLenis = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(updateLenis);
+    gsap.ticker.lagSmoothing(0);
 
-    return () => lenis.destroy();
+    return () => {
+      gsap.ticker.remove(updateLenis);
+      lenis.destroy();
+    };
   }, [loaded]);
 
   return (
     <>
       <Preloader onComplete={handlePreloaderComplete} />
       {loaded && (
-        <main className="bg-background text-foreground min-h-screen overflow-x-hidden">
+        <main className="kage-page bg-background text-foreground min-h-screen overflow-x-hidden">
+          <KageScene />
+          <VentureConstellation />
           {/* Grain overlay — hidden on iOS to avoid fixed SVG filter compositing cost */}
           {!isIOS() && <div className="grain-overlay" />}
           <CustomCursor />
@@ -69,7 +79,6 @@ const Index = () => {
               <NewsletterSection />
               <ContactSection />
               <FooterSection />
-              <ChatWidget />
             </>
           )}
         </main>

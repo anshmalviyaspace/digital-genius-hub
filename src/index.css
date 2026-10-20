@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Onest:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,39 +6,39 @@
 
 @layer base {
   :root {
-    --background: 0 0% 3%;
-    --foreground: 40 20% 95%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 96%;
 
-    --card: 0 0% 6%;
-    --card-foreground: 40 20% 95%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 0 0% 6%;
-    --popover-foreground: 40 20% 95%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 32 100% 55%;
-    --primary-foreground: 0 0% 3%;
+    --primary: 25 96% 55%;
+    --primary-foreground: 0 0% 4%;
 
-    --secondary: 0 0% 8%;
-    --secondary-foreground: 40 20% 95%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 96%;
 
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 66%;
 
-    --accent: 20 80% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 25 96% 55%;
+    --accent-foreground: 0 0% 4%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 25 96% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
-    --ring: 32 100% 55%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 25 96% 55%;
 
     --radius: 0.5rem;
 
-    --surface: 0 0% 5%;
-    --glow: 32 100% 55%;
-    --warm: 24 60% 85%;
+    --surface: 0 0% 7%;
+    --glow: 25 96% 55%;
+    --warm: 25 96% 55%;
   }
 }
 
@@ -56,7 +56,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Onest', sans-serif;
     overflow-x: hidden;
     max-width: 100vw;
     -webkit-font-smoothing: antialiased;
@@ -66,7 +66,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Onest', sans-serif;
   }
 
   /* Ensure all interactive elements have adequate tap targets on mobile */
@@ -82,7 +82,7 @@
 
 @layer utilities {
   .font-mono {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'DM Mono', monospace;
   }
 
   .text-gradient {
@@ -249,7 +249,7 @@ html.lenis, html.lenis body {
   height: 60vw;
   top: 5%;
   right: -10%;
-  background: radial-gradient(circle, hsl(270 70% 55% / 0.5), hsl(270 70% 55% / 0) 70%);
+  background: radial-gradient(circle, hsl(220 70% 45% / 0.5), hsl(220 70% 45% / 0) 70%);
   animation: aurora-drift-2 10s ease-in-out infinite alternate;
 }
 
@@ -281,4 +281,335 @@ html.lenis, html.lenis body {
   .aurora-mobile-blob {
     animation: none;
   }
+}
+
+/* Kage-inspired portfolio system: black, white, and orange UI surfaces. */
+.kage-page {
+  --kage-ink: #050505;
+  --kage-panel: #090909;
+  --kage-bone: #f5f6f8;
+  --kage-dim: #c3cad5;
+  --kage-muted: #8995a8;
+  --kage-orange: #ff7a1a;
+  --kage-navy: #090909;
+  --kage-line: rgba(231, 237, 247, 0.16);
+  position: relative;
+  isolation: isolate;
+  background: var(--kage-ink);
+  color: var(--kage-bone);
+  font-family: 'Onest', sans-serif;
+}
+
+.kage-page h1,
+.kage-page h2,
+.kage-page h3,
+.kage-page h4 {
+  font-family: 'Onest', sans-serif;
+  letter-spacing: -0.045em;
+}
+
+.kage-page .text-primary { color: var(--kage-orange); }
+.kage-page .text-gradient,
+.kage-page .text-gradient-warm {
+  background-image: linear-gradient(100deg, #ffffff 5%, #ffbf8a 75%, #ff7a1a 120%);
+}
+.kage-page .bg-primary { background-color: var(--kage-orange); }
+.kage-page .border-primary { border-color: var(--kage-orange); }
+
+.kage-brand {
+  display: inline-flex;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+}
+.kage-brand-logo { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+.kage-scene,
+.kage-scene-fallback {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+.kage-scene { z-index: 0; pointer-events: none; background: #071329; }
+.kage-scene canvas { position: absolute; z-index: 0; inset: 0; display: block; width: 100%; height: 100%; }
+.kage-scene-fallback {
+  z-index: 1;
+  background: #071329;
+  transition: opacity .7s ease;
+}
+.scene-fallback-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 48%;
+  filter: brightness(.54) saturate(.72);
+}
+.kage-scene-fallback::after { position: absolute; inset: 0; content: ''; background: linear-gradient(180deg, rgba(4, 8, 10, .32), rgba(4, 8, 10, .05) 44%, rgba(4, 8, 10, .55)); }
+.kage-scene.is-live .kage-scene-fallback { opacity: 0; }
+.venture-constellation {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  mix-blend-mode: screen;
+}
+.venture-orbit {
+  position: absolute;
+  left: 78%;
+  top: 50%;
+  width: min(52vw, 760px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 122, 26, .2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotateX(68deg) rotateZ(-19deg);
+  box-shadow: 0 0 50px rgba(255, 122, 26, .06), inset 0 0 50px rgba(0, 0, 0, .22);
+  animation: constellation-orbit 36s linear infinite;
+}
+.venture-orbit-b {
+  width: min(42vw, 610px);
+  border-color: rgba(231, 237, 247, .15);
+  transform: translate(-50%, -50%) rotateX(68deg) rotateZ(24deg);
+  animation-direction: reverse;
+  animation-duration: 48s;
+}
+.venture-panels { position: absolute; inset: 0; transform-style: preserve-3d; }
+.venture-panel {
+  position: absolute;
+  right: 4vw;
+  width: clamp(150px, 19vw, 280px);
+  aspect-ratio: 1.58;
+  overflow: hidden;
+  border: 1px solid rgba(231, 237, 247, .4);
+  background: rgba(8, 8, 9, .92);
+  box-shadow: 0 30px 85px rgba(0, 0, 0, .4), 0 0 35px rgba(255, 122, 26, .08);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+.venture-panel-1 { top: 9%; }
+.venture-panel-2 { top: 38%; right: 13vw; }
+.venture-panel-3 { top: 67%; right: 5vw; }
+.venture-panel::before { position: absolute; z-index: 2; inset: 8px; content: ''; border: 1px solid rgba(231, 237, 247, .18); pointer-events: none; }
+.venture-panel img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.72) brightness(.76); }
+.venture-panel-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4, 9, 10, .02) 28%, rgba(4, 9, 10, .87) 100%); }
+.venture-panel-meta { position: absolute; z-index: 3; left: 19px; right: 19px; bottom: 17px; display: grid; gap: 3px; color: #e1e7dc; font-family: 'DM Mono', monospace; text-transform: uppercase; text-shadow: 0 2px 12px #050809; }
+.venture-panel-meta span { color: #ff9a52; font-size: 7px; letter-spacing: .17em; }
+.venture-panel-meta b { font-family: 'Onest', sans-serif; font-size: clamp(14px, 1.4vw, 20px); font-weight: 500; letter-spacing: -.03em; }
+.venture-panel-meta small { color: #b5bfb5; font-size: 7px; letter-spacing: .12em; }
+.venture-panel-glint { position: absolute; z-index: 2; top: -55%; left: -60%; width: 45%; height: 210%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .13), transparent); transform: rotate(27deg); animation: panel-glint 8s ease-in-out infinite; }
+@keyframes constellation-orbit { to { transform: translate(-50%, -50%) rotateX(68deg) rotateZ(341deg); } }
+@keyframes panel-glint { 0%, 65% { left: -60%; } 100% { left: 125%; } }
+.project-image-stage { position: relative; display: grid; flex: 0 0 auto; place-items: center; height: clamp(190px, 22vw, 270px); overflow: hidden; border-bottom: 1px solid rgba(231, 237, 247, .12); background: radial-gradient(ellipse at 50% 45%, rgba(38, 43, 52, .32), rgba(9, 9, 10, .96) 72%); }
+.project-image-stage img { display: block; width: 100%; height: 100%; padding: clamp(9px, 1.5vw, 18px); object-fit: contain; object-position: center; filter: saturate(.78) brightness(.9); transition: transform .8s cubic-bezier(.22,.61,.36,1), filter .8s ease; }
+.project-image-index { position: absolute; top: 12px; left: 13px; padding: 5px 7px; border: 1px solid rgba(231, 237, 247, .13); background: rgba(5, 6, 8, .68); color: #b7c0b8; font: 7px/1 'DM Mono', monospace; letter-spacing: .14em; }
+.kage-page #projects a:hover .project-image-stage img { filter: saturate(.96) brightness(1); transform: scale(1.035); }
+@media (min-width: 1024px) {
+  .kage-hero-main { min-height: min(78vh, 760px); flex: 1 1 0%; grid-template-columns: minmax(0, 1fr) minmax(400px, .95fr); align-content: center; align-items: center; gap: clamp(24px, 3vw, 52px); }
+  .kage-hero-copy { width: min(100%, 900px); }
+  .kage-portrait-wrap { width: min(118%, 900px); justify-self: end; margin: 0 -4% 0 0; }
+  .kage-portrait-frame { height: clamp(560px, 78vh, 780px); min-height: 520px; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .kage-hero-inner { padding-top: 104px; }
+  .kage-hero-main { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 28px; padding-top: 24px; padding-bottom: 28px; }
+  .kage-hero-copy { width: min(100%, 820px); }
+  .kage-display { font-size: clamp(5rem, 11vw, 7rem); }
+  .kage-portrait-wrap { width: min(78vw, 560px); justify-self: center; margin: 0 auto; }
+  .kage-portrait-frame { height: clamp(360px, 56vw, 520px); min-height: 360px; }
+  .kage-hero-foot { align-items: start; }
+}
+
+@media (max-width: 767px) {
+  .venture-orbit { left: 87%; width: 74vw; opacity: .55; animation: none; }
+  .venture-orbit-b { width: 60vw; opacity: .4; }
+  .venture-panel { right: 2vw; width: clamp(94px, 24vw, 150px); aspect-ratio: 1.6; box-shadow: 0 12px 34px rgba(0, 0, 0, .34); }
+  .venture-panel-1 { top: 12%; }
+  .venture-panel-2 { top: 42%; right: 7vw; }
+  .venture-panel-3 { top: 71%; }
+  .venture-panel-meta { left: 9px; right: 9px; bottom: 8px; gap: 2px; }
+  .venture-panel-meta span, .venture-panel-meta small { font-size: 5px; }
+  .venture-panel-meta b { font-size: 10px; }
+  .venture-panel::before { inset: 4px; }
+  .venture-panel-glint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .venture-constellation { display: none; }
+  .venture-panel-glint, .venture-orbit { animation: none; }
+}
+.kage-hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+.kage-hero::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(4, 7, 13, .72), rgba(7, 19, 41, .12) 68%, rgba(7, 19, 41, .2)), linear-gradient(0deg, #05070c, transparent 29%);
+}
+.kage-hero::before { position: absolute; z-index: 1; top: 8%; right: 4%; width: min(54vw, 760px); aspect-ratio: 1; content: ''; border-radius: 50%; background: radial-gradient(circle, rgba(9, 9, 10, .5), rgba(0, 0, 0, .16) 48%, transparent 72%); filter: blur(8px); pointer-events: none; }
+.kage-hero-inner { z-index: 3; }
+.kage-hero-main { min-height: 0; flex: 0 0 auto; grid-template-columns: minmax(0, 1fr); align-content: start; align-items: start; gap: clamp(20px, 3vw, 38px); position: relative; }
+.kage-hero-copy { position: relative; z-index: 2; width: min(100%, 1120px); }
+.kage-eyebrow,
+.kage-portrait-index,
+.kage-portrait-caption,
+.kage-scroll-cue,
+.kage-chapter-nav,
+.kage-stats small {
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+}
+.kage-eyebrow { display: flex; align-items: center; gap: 12px; color: #bec6bb; font-size: 10px; letter-spacing: .16em; }
+.kage-eyebrow i { width: 24px; height: 1px; background: rgba(231, 237, 247, .34); }
+.kage-pip { width: 6px; height: 6px; border-radius: 50%; background: var(--kage-orange); box-shadow: 0 0 15px rgba(255, 122, 26, .65); }
+.kage-display { margin: 35px 0 22px; color: #f5f6f8; font-size: clamp(4rem, 10vw, 9.3rem); font-weight: 500; line-height: .81; letter-spacing: -.085em; }
+.kage-name { position: relative; width: max-content; max-width: 100%; }
+.kage-name::after { position: absolute; top: -.2em; right: -.4em; content: '01'; color: var(--kage-orange); font: 500 10px/1 'DM Mono', monospace; letter-spacing: .12em; }
+.kage-name span { color: transparent; -webkit-text-stroke: 1px rgba(245, 246, 248, .78); }
+.kage-hero-intro { display: flex; align-items: flex-start; gap: 16px; max-width: 430px; margin-top: 31px; }
+.kage-intro-rule { flex: 0 0 27px; height: 1px; margin-top: 10px; background: var(--kage-orange); }
+.kage-hero-intro p { margin: 0; color: #abb4aa; font-size: clamp(13px, 1.3vw, 16px); font-weight: 300; line-height: 1.8; }
+.kage-hero-intro em { color: #e4e8dc; font-style: normal; }
+.kage-stats { display: flex; gap: clamp(28px, 5vw, 65px); margin: 40px 0 0 43px; }
+.kage-stats > div { display: grid; gap: 7px; }
+.kage-stats b { color: #e8eadd; font-size: 24px; font-weight: 400; letter-spacing: -.06em; }
+.kage-stats b span { color: var(--kage-orange); }
+.kage-stats small { color: #7b8780; font-size: 8px; letter-spacing: .14em; }
+.kage-portrait-wrap { position: relative; width: min(48vw, 440px); justify-self: center; align-self: center; margin: 0 auto; isolation: isolate; }
+.kage-portrait-wrap::before { position: absolute; z-index: -1; inset: 8% -10% 12% -8%; content: ''; border-radius: 50%; background: radial-gradient(ellipse, rgba(255, 122, 26, .13), rgba(0, 0, 0, .24) 40%, transparent 72%); filter: blur(22px); }
+.kage-portrait-frame { position: relative; z-index: 2; height: clamp(320px, 42vh, 440px); min-height: 320px; overflow: hidden; border: 0; background: transparent; box-shadow: none; -webkit-mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 82%, transparent 100%); -webkit-mask-composite: source-in; mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 12%, #000 82%, transparent 100%); mask-composite: intersect; transform: perspective(1200px) rotateY(-4deg) rotateX(1deg); transition: transform .7s cubic-bezier(.22,.61,.36,1); }
+.kage-portrait-wrap:hover .kage-portrait-frame { transform: perspective(1200px) rotateY(0deg) rotateX(0deg) translateZ(18px); }
+.kage-portrait-frame::before { display: none; }
+.kage-portrait-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 17%; filter: grayscale(1) sepia(.16) brightness(.82) contrast(1.06); transform: scale(1.035); }
+.kage-portrait-wash { position: absolute; inset: 0; background: radial-gradient(ellipse, transparent 48%, rgba(4, 7, 13, .18) 78%, rgba(4, 7, 13, .62) 100%), linear-gradient(180deg, rgba(4, 4, 5, .02) 48%, rgba(4, 4, 5, .62) 100%), linear-gradient(125deg, rgba(255, 122, 26, .12), transparent 54%); }
+.kage-portrait-index,.kage-portrait-caption { position: absolute; z-index: 2; left: 29px; color: #d4d8cf; font-size: 8px; letter-spacing: .15em; }
+.kage-portrait-index { top: 29px; }
+.kage-portrait-caption { bottom: 29px; font-size: 9px; }
+.kage-orbit { position: absolute; z-index: 1; display: block; border: 1px solid rgba(255, 122, 26, .36); border-radius: 50%; pointer-events: none; }
+.orbit-one { width: 112%; height: 74%; right: -30%; top: 12%; transform: rotate(-24deg); }
+.orbit-two { width: 120%; height: 89%; right: -22%; top: 4%; transform: rotate(-24deg); border-color: rgba(231, 237, 247, .15); animation: hero-orbit-drift 34s linear infinite reverse; }
+.orbit-one { animation: hero-orbit-drift 42s linear infinite; }
+.kage-hero-seal { position: absolute; z-index: 4; top: 36%; left: -30px; display: grid; justify-items: start; gap: 4px; width: 92px; padding: 11px 12px 12px; border: 1px solid rgba(255, 122, 26, .58); background: rgba(5, 7, 12, .84); box-shadow: 0 15px 45px rgba(0, 0, 0, .32); transform: rotate(-7deg); backdrop-filter: blur(12px); }
+.kage-hero-seal span,.kage-hero-seal small { color: #c6cede; font: 400 7px/1.3 'DM Mono', monospace; letter-spacing: .12em; }
+.kage-hero-seal strong { color: var(--kage-orange); font-size: 28px; font-weight: 500; line-height: .95; letter-spacing: -.08em; }
+.kage-hero-seal small { color: #f3f5f8; }
+@keyframes hero-orbit-drift { to { transform: rotate(336deg); } }
+.kage-hero-foot { display: flex; align-items: end; justify-content: space-between; gap: 28px; }
+.kage-scroll-cue { display: flex; align-items: center; gap: 11px; color: #cbd0c6; font-size: 9px; letter-spacing: .13em; text-decoration: none; white-space: nowrap; }
+.kage-scroll-cue i { display: block; width: 44px; height: 1px; background: rgba(231, 237, 247, .37); }
+.kage-scroll-cue > span:last-child { color: var(--kage-orange); font-size: 15px; }
+.kage-chapter-nav { display: grid; grid-template-columns: repeat(4, minmax(115px, 1fr)); gap: clamp(14px, 2.5vw, 38px); width: min(70%, 760px); }
+.kage-chapter-nav a { display: grid; grid-template-columns: 23px 1fr; gap: 4px 8px; align-items: center; color: #c5ccc1; font-size: 10px; letter-spacing: .08em; text-decoration: none; transition: color .25s ease; }
+.kage-chapter-nav a:hover { color: white; }
+.kage-chapter-nav b { grid-row: span 2; align-self: start; color: var(--kage-orange); font-size: 9px; font-weight: 400; }
+.kage-chapter-nav i { color: #6f7a74; font: normal 8px/1 'DM Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+
+.kage-page > section { position: relative; z-index: 1; }
+.kage-page section:not(.kage-hero) { position: relative; border-top: 1px solid rgba(231, 237, 247, .1); background: linear-gradient(180deg, rgba(7, 7, 8, .48), rgba(4, 4, 5, .62)); }
+.kage-page section:not(.kage-hero)::before { position: absolute; inset: 0; z-index: -1; content: ''; background: radial-gradient(ellipse at 78% 18%, rgba(28, 28, 30, .22), transparent 48%), radial-gradient(ellipse at 16% 78%, rgba(255, 122, 26, .045), transparent 44%); }
+.kage-page #projects { padding-top: clamp(72px, 11vw, 150px); padding-bottom: clamp(72px, 10vw, 136px); }
+.kage-page #projects .container,
+.kage-page #services .container,
+.kage-page #about .container,
+.kage-page #tweets .container,
+.kage-page #newsletter .container,
+.kage-page #contact .container,
+.kage-page footer .container { max-width: 1440px; }
+.kage-page #projects h2,
+.kage-page #services h2,
+.kage-page #tweets h2 { font-weight: 400; letter-spacing: -.06em; }
+.kage-page #projects > .container > div:first-of-type { max-width: 1440px; margin-left: auto; margin-right: auto; }
+.kage-page #projects .rounded-2xl,
+.kage-page #projects .rounded-3xl { border-radius: 2px; }
+.kage-page #projects a { border: 1px solid rgba(231, 237, 247, .14); background-color: rgba(8, 8, 9, .94); transform-style: preserve-3d; perspective: 1100px; transition: border-color .35s ease, box-shadow .35s ease, transform .45s cubic-bezier(.2,.8,.2,1); }
+.kage-page #projects a:hover { translate: 0 -7px; rotate: x 1deg; box-shadow: 0 28px 70px rgba(0, 0, 0, .32), 0 0 0 1px rgba(255, 122, 26, .2); }
+.kage-page #projects a .relative.z-10 { transform: translateZ(28px); }
+.kage-page #projects a:hover { border-color: rgba(255, 122, 26, .58); }
+.kage-page #projects a > div[class*="gradient"] { opacity: .93; }
+.kage-page #projects a h3 { letter-spacing: -.04em; }
+.kage-page #projects a p { color: #a1aaa0; }
+.kage-page #projects a > img { filter: saturate(.62) brightness(.78); transition: transform .8s cubic-bezier(.22,.61,.36,1), filter .8s ease; }
+.kage-page #projects .bg-card { background-color: rgba(9, 9, 10, .94); }
+.kage-page #projects a.bg-card { transition: border-color .3s, background-color .3s; }
+
+.kage-page #services { padding-top: clamp(68px, 9vw, 126px); padding-bottom: clamp(76px, 10vw, 136px); }
+.kage-page #services .group { border-color: var(--kage-line); }
+.kage-page #services .group:last-child { border-color: var(--kage-line); }
+.kage-page #services h3 { font-weight: 400; }
+.kage-page #services .group:hover h3 { color: var(--kage-orange); }
+.kage-page #services .group { transform: perspective(1200px) rotateX(0deg); transition: transform .4s ease, padding .4s ease; }
+.kage-page #services .group:hover { translate: 6px 0; rotate: x -1deg; }
+.kage-page #services .rounded-full { border-radius: 0; }
+.kage-page #about { padding-top: clamp(70px, 9vw, 126px); padding-bottom: clamp(70px, 9vw, 126px); }
+.kage-page #about > div > div:first-of-type { color: var(--kage-bone); }
+.kage-page #about .bg-card { border: 1px solid var(--kage-line); border-radius: 0; background: rgba(9, 9, 10, .9); }
+.kage-page #about .rounded-xl { border-radius: 0; }
+.kage-page #about .border-l-2 { border-color: rgba(255, 122, 26, .64); }
+.kage-page #about .skill-bar { background: rgba(231, 237, 247, .14); }
+.kage-page #tweets,
+.kage-page #newsletter { padding-top: clamp(62px, 8vw, 110px); padding-bottom: clamp(62px, 8vw, 110px); }
+.kage-page #tweets [class*="rounded-xl"] { border: 1px solid var(--kage-line); border-radius: 2px; }
+.kage-page #newsletter .rounded-2xl,
+.kage-page #newsletter .rounded-xl { border-radius: 2px; }
+.kage-page #contact { padding-top: clamp(90px, 13vw, 175px); padding-bottom: clamp(90px, 13vw, 175px); }
+.kage-page #contact h2 { font-weight: 400; letter-spacing: -.07em; }
+.kage-page #contact .contact-heading,
+.kage-page #contact .contact-heading > div { width: 100%; max-width: 100%; }
+.kage-page #contact .contact-line { display: block; width: 100%; max-width: 100%; margin: 0; font-size: clamp(2.25rem, 6.8vw, 7rem); line-height: 1.08; letter-spacing: -.055em; text-wrap: balance; white-space: normal; }
+.kage-page #contact a.bg-primary { border-radius: 0; box-shadow: 0 10px 40px rgba(255, 122, 26, .2); }
+.kage-page footer { border-top: 1px solid rgba(231, 237, 247, .1); padding-top: 44px; }
+
+@media (max-width: 767px) {
+  .kage-hero-inner { min-height: 100svh; padding-top: 78px; padding-bottom: 22px; }
+  .kage-hero-main { min-height: 0; flex: 0 0 auto; grid-template-columns: minmax(0, 1fr); align-content: start; align-items: start; gap: 18px; padding-top: 10px; padding-bottom: 18px; }
+  .kage-hero-copy { min-width: 0; }
+  .kage-eyebrow { flex-wrap: wrap; row-gap: 6px; }
+  .kage-display { margin: 22px 0 18px; font-size: clamp(3.1rem, 13vw, 5rem); line-height: .88; }
+  .kage-name::after { top: -.16em; right: -.28em; font-size: 8px; }
+  .kage-portrait-wrap { position: relative; top: auto; right: auto; width: min(88vw, 440px); max-width: 100%; justify-self: center; align-self: center; margin: 0 auto; opacity: 1 !important; }
+  .kage-portrait-frame { height: clamp(320px, 48svh, 480px); min-height: 300px; }
+  .kage-portrait-frame img { object-position: 50% 18%; }
+  .kage-portrait-index,.kage-portrait-caption { left: 12px; font-size: 6px; }
+  .kage-portrait-index { top: 18px; }
+  .kage-portrait-caption { bottom: 18px; }
+  .kage-orbit { display: none; }
+  .kage-hero-seal { display: none; }
+  .kage-stats { position: relative; z-index: 2; gap: clamp(8px, 2.5vw, 18px); margin: 26px 0 0; }
+  .kage-stats b { font-size: clamp(18px, 4vw, 21px); }
+  .kage-stats small { font-size: 7px; }
+  .kage-hero-foot { display: grid; align-items: start; gap: 22px; }
+  .kage-chapter-nav { width: 100%; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .kage-chapter-nav a { grid-template-columns: 18px 1fr; gap: 4px; font-size: 8px; letter-spacing: .01em; }
+  .kage-chapter-nav i { font-size: 9px; }
+  .kage-page #contact .contact-line { font-size: clamp(2.25rem, 8.8vw, 3.8rem); }
+}
+
+@media (max-width: 420px) {
+  .kage-eyebrow { gap: 7px; font-size: 8px; letter-spacing: .1em; }
+  .kage-hero-main { gap: 14px; }
+  .kage-display { font-size: clamp(2.8rem, 12vw, 3.5rem); }
+  .kage-portrait-wrap { width: min(88vw, 360px); }
+  .kage-portrait-frame { height: clamp(300px, 44svh, 420px); min-height: 280px; }
+  .kage-stats { gap: 9px; }
+  .kage-chapter-nav a { grid-template-columns: 1fr; }
+  .kage-chapter-nav b { grid-row: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kage-scene canvas { display: none; }
+  .kage-scene-fallback { opacity: 1 !important; }
+  .kage-orbit { animation: none; }
+  .kage-page *, .kage-page *::before, .kage-page *::after { scroll-behavior: auto !important; }
 }

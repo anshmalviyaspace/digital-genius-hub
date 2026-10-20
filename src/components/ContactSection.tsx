@@ -19,8 +19,8 @@ function ContactSection() {
     if (shouldDisableAnimations()) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(".contact-line", { y: "100%" },
-        { y: "0%", duration: 1, stagger: 0.12, ease: "power4.out",
+      gsap.fromTo(".contact-line", { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.9, stagger: 0.12, ease: "power4.out",
           scrollTrigger: { trigger: ".contact-heading", start: "top 80%" } }
       );
       gsap.fromTo(".contact-meta", { opacity: 0, y: 20 },
@@ -48,12 +48,12 @@ function ContactSection() {
         </div>
 
         <div className="contact-heading">
-          <div className="overflow-hidden">
+          <div>
             <h2 className="contact-line font-heading font-bold text-[clamp(2rem,8vw,8rem)] tracking-[-0.03em] text-foreground leading-[0.9]">
               Let's Build
             </h2>
           </div>
-          <div className="overflow-hidden">
+          <div>
             <h2 className="contact-line font-heading font-bold text-[clamp(2rem,8vw,8rem)] tracking-[-0.03em] text-gradient leading-[0.9]">
               Something Great
             </h2>
@@ -66,7 +66,7 @@ function ContactSection() {
 
         {/* CTA button — wraps gracefully on small screens */}
         <motion.a
-          href="mailto:ansh@webcommedia.in"
+          href="mailto:anshmalviya010@gmail.com"
           whileTap={{ scale: 0.97 }}
           className="contact-meta inline-flex items-center gap-2 sm:gap-3 bg-primary text-primary-foreground px-6 sm:px-10 py-4 sm:py-5 rounded-full font-heading font-semibold text-sm sm:text-base mt-7 sm:mt-12 transition-shadow duration-500 touch-manipulation max-w-full"
         >

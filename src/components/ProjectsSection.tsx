@@ -130,19 +130,20 @@ const ProjectsSection = () => (
             rel="noopener noreferrer"
             variants={fadeUp}
             whileTap={{ scale: 0.98 }}
-            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-card min-h-[280px] sm:min-h-[420px] flex flex-col justify-end cursor-pointer"
+            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-card min-h-[420px] sm:min-h-[480px] flex flex-col cursor-pointer"
           >
             {project.image && (
-              <img
-                src={project.image}
-                alt={project.title}
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-top"
-              />
+              <div className="project-image-stage">
+                <img
+                  src={project.image}
+                  alt={`${project.title} website preview`}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="project-image-index">{project.num} / LIVE WORK</span>
+              </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-            <div className="relative z-10 p-5 sm:p-8 md:p-10">
+            <div className="relative z-10 flex flex-1 flex-col justify-end p-5 sm:p-7 md:p-8">
               <div className="flex items-center gap-2 mb-3 flex-wrap">
                 <span className="font-mono text-[10px] tracking-widest text-primary">{project.num}</span>
                 <div className="w-6 h-px bg-primary/40" />
@@ -157,7 +158,7 @@ const ProjectsSection = () => (
                 {project.description}
               </p>
             </div>
-            <div className="absolute top-5 right-5 sm:top-8 sm:right-8 w-9 h-9 rounded-full border border-foreground/20 flex items-center justify-center">
+            <div className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-foreground/20 bg-black/55 backdrop-blur-sm sm:right-5 sm:top-5">
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
                 <path d="M4 12L12 4M12 4H6M12 4V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary" />
               </svg>

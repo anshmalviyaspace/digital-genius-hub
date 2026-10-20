@@ -2,10 +2,10 @@ import StaggeredMenu from "@/components/StaggeredMenu";
 import logoImg from "@/assets/logo.png";
 
 const navItems = [
-  { label: "Work",       ariaLabel: "View my work",        link: "#projects"   },
-  { label: "Services",   ariaLabel: "View my services",    link: "#services"   },
-  { label: "About",      ariaLabel: "Learn about me",      link: "#about"      },
-  { label: "Newsletter", ariaLabel: "Read my newsletter",  link: "#newsletter" },
+  { label: "Ventures",   ariaLabel: "View my ventures",    link: "#projects"   },
+  { label: "Craft",      ariaLabel: "View my capabilities", link: "#services"  },
+  { label: "Principles", ariaLabel: "Learn about me",      link: "#about"      },
+  { label: "Dispatch",   ariaLabel: "Read my newsletter",  link: "#newsletter" },
   { label: "Contact",    ariaLabel: "Get in touch",        link: "#contact"    },
 ];
 
@@ -17,12 +17,9 @@ const socialItems = [
 ];
 
 const Logo = () => (
-  <img
-    src={logoImg}
-    alt="Ansh Malviya"
-    className="h-10 w-auto object-contain"
-    draggable={false}
-  />
+  <span className="kage-brand" aria-label="Ansh Malviya, home">
+    <img src={logoImg} alt="Ansh Malviya" className="kage-brand-logo" draggable={false} />
+  </span>
 );
 
 const Navbar = () => (
@@ -32,8 +29,8 @@ const Navbar = () => (
     socialItems={socialItems}
     displaySocials
     displayItemNumbering
-    colors={["hsl(0 0% 8%)", "hsl(0 0% 5%)"]}
-    accentColor="#f97316"
+    colors={["#090909", "#050505"]}
+    accentColor="#ff7a1a"
     menuButtonColor="#ffffff"
     openMenuButtonColor="#ffffff"
     changeMenuColorOnOpen={false}

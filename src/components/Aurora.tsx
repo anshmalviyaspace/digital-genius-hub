@@ -93,7 +93,7 @@ export interface AuroraProps {
 }
 
 export default function Aurora({
-  colorStops = ['#3B82F6', '#94a3b8', '#7C3AED'],
+  colorStops = ['#ff7a1a', '#ffffff', '#10264b'],
   amplitude = 1.0,
   blend = 0.5,
   speed = 1.0,
@@ -117,7 +117,8 @@ export default function Aurora({
 
     const geometry = new Triangle(gl);
     // Remove UV attribute — not used in our shader
-    if ((geometry.attributes as any).uv) delete (geometry.attributes as any).uv;
+    const geometryAttributes = geometry.attributes as Record<string, unknown>;
+    if ("uv" in geometryAttributes) delete geometryAttributes.uv;
 
     const toRgb = (hex: string) => {
       const c = new Color(hex);
