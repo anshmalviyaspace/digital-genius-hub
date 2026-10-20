@@ -608,8 +608,6 @@ html.lenis, html.lenis body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kage-scene canvas { display: none; }
-  .kage-scene-fallback { opacity: 1 !important; }
   .kage-orbit { animation: none; }
   .kage-page *, .kage-page *::before, .kage-page *::after { scroll-behavior: auto !important; }
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { isMobileDevice, prefersReducedMotion } from "@/lib/utils";
+import { isMobileDevice } from "@/lib/utils";
 
 const frameUrls = Object.entries(
   import.meta.glob<string>("/src/assets/valley-frames/*.jpg", {
@@ -21,7 +21,12 @@ export default function KageScene() {
     const canvas = canvasRef.current;
     const context = canvas?.getContext("2d", { alpha: false });
     if (!host || !canvas || !context || frameUrls.length === 0) return;
-    if (isMobileDevice() || prefersReducedMotion()) return;
+
+    // Keep the scroll-scrubbed scenery active on phones too, with a smaller
+    // decoded-frame cache and canvas budget for mobile GPUs and memory.
+    const isMobile = isMobileDevice();
+    const maxCachedFrames = isMobile ? 4 : 6;
+    const maxCanvasPixels = isMobile ? 420_000 : 720_000;
 
     let cancelled = false;
     let rafId = 0;
@@ -39,7 +44,7 @@ export default function KageScene() {
     const pending = new Map<number, Promise<HTMLImageElement | null>>();
 
     const trimCache = () => {
-      while (cache.size > 6) {
+      while (cache.size > maxCachedFrames) {
         const oldest = cache.keys().next().value as number | undefined;
         if (oldest === undefined) break;
         cache.delete(oldest);
@@ -124,7 +129,7 @@ export default function KageScene() {
 
     const resize = () => {
       const rect = host.getBoundingClientRect();
-      const scale = Math.min(1, Math.sqrt(720_000 / Math.max(1, rect.width * rect.height)));
+      const scale = Math.min(1, Math.sqrt(maxCanvasPixels / Math.max(1, rect.width * rect.height)));
       width = Math.max(1, rect.width * scale);
       height = Math.max(1, rect.height * scale);
       canvas.width = Math.round(width);
@@ -173,7 +178,7 @@ export default function KageScene() {
       scheduleUpdate();
     });
     observer.observe(host);
-    host.addEventListener("pointermove", move, { passive: true });
+    if (!isMobile) host.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     resize();
     scheduleUpdate();
@@ -182,7 +187,7 @@ export default function KageScene() {
       cancelled = true;
       cancelAnimationFrame(rafId);
       observer.disconnect();
-      host.removeEventListener("pointermove", move);
+      if (!isMobile) host.removeEventListener("pointermove", move);
       window.removeEventListener("scroll", scheduleUpdate);
       cache.clear();
       pending.clear();
