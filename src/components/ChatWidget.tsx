@@ -118,7 +118,7 @@ export default function ChatWidget() {
       {/* Floating bubble */}
       <motion.button
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-6 right-6 z-[60] h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-2xl shadow-primary/40 flex items-center justify-center hover:scale-105 transition-transform"
+        className="prisma-chat-trigger fixed bottom-5 right-5 z-[60] h-12 w-12 rounded-full bg-primary text-primary-foreground shadow-xl flex items-center justify-center hover:scale-105 transition-transform"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.2, type: "spring" }}

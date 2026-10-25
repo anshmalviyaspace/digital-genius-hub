@@ -30,10 +30,11 @@ const FooterSection = () => {
               </h4>
               <div className="space-y-2 sm:space-y-2">
                 {[
-                  { label: "Work", href: "#projects" },
-                  { label: "Services", href: "#services" },
+                  { label: "Ventures", href: "#ventures" },
+                  { label: "Capabilities", href: "#capabilities" },
                   { label: "About", href: "#about" },
-                  { label: "Contact", href: "#contact" },
+                  { label: "Featured moments", href: "#tweets" },
+                  { label: "Inquiries", href: "#contact" },
                 ].map((item) => (
                   <a
                     key={item.label}

@@ -15,9 +15,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ["Space Grotesk", "sans-serif"],
-        body: ["DM Sans", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        heading: ["Almarai", "sans-serif"],
+        body: ["Almarai", "sans-serif"],
+        mono: ["ui-monospace", "SFMono-Regular", "monospace"],
+        serif: ['"Instrument Serif"', "serif"],
       },
       colors: {
         border: "hsl(var(--border))",
